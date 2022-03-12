@@ -29,17 +29,35 @@ ALLOWED_HOSTS = []
 
 
 # Application definition
-
-INSTALLED_APPS = [
+SHARED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'client',
+    'django_tenants',
+    'shared_app',
 ]
 
+TENANT_APPS = (
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'tenant_app',
+)
+
+INSTALLED_APPS = list(SHARED_APPS) + [app for app in TENANT_APPS if app not in SHARED_APPS]
+
+TENANT_MODEL = "client.Client"  # app.Model
+TENANT_DOMAIN_MODEL = "client.Domain"  # app.Model
+
 MIDDLEWARE = [
+    'django_tenants.middleware.main.TenantMainMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -73,13 +91,38 @@ WSGI_APPLICATION = 'django_tenant_app.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django_tenants.postgresql_backend',
+        'NAME': 'tenant_demo',
+        'USER': 'postgres',
+        'PASSWORD': 'fantastic',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
 
+DATABASE_ROUTERS = (
+    'django_tenants.routers.TenantSyncRouter',
+)
+
+# https://django-tenants.readthedocs.io/en/latest/install.html
+# The schema name that will be treated as public, that is, where the SHARED_APPS will be created.
+PUBLIC_SCHEMA_NAME = 'public'
+TENANT_CREATION_FAKES_MIGRATIONS = False
+
+ROOT_URLCONF = 'django_tenant_app.urls_tenants'
+PUBLIC_SCHEMA_URLCONF = 'django_tenant_app.urls_public'
+
+# It is use for No Tenant 
+SHOW_PUBLIC_IF_NO_TENANT_FOUND = True
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
