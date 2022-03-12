@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-uncbw6))vnf(ms9mwt&3wx0xju_i@1fnyqz_jrun$x*^x(m48q
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -47,7 +47,6 @@ TENANT_APPS = (
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.staticfiles',
     'tenant_app',
 )
 
@@ -58,6 +57,7 @@ TENANT_DOMAIN_MODEL = "client.Domain"  # app.Model
 
 MIDDLEWARE = [
     'django_tenants.middleware.main.TenantMainMiddleware',
+    # 'django_tenant_app.middleware.TenantTutorialMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -67,7 +67,6 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'django_tenant_app.urls'
 
 TEMPLATES = [
     {
@@ -115,13 +114,14 @@ DATABASE_ROUTERS = (
 
 # https://django-tenants.readthedocs.io/en/latest/install.html
 # The schema name that will be treated as public, that is, where the SHARED_APPS will be created.
-PUBLIC_SCHEMA_NAME = 'public'
-TENANT_CREATION_FAKES_MIGRATIONS = False
+# PUBLIC_SCHEMA_NAME = 'public'
+# TENANT_CREATION_FAKES_MIGRATIONS = False
 
+# ROOT_URLCONF = 'django_tenant_app.urls'
 ROOT_URLCONF = 'django_tenant_app.urls_tenants'
 PUBLIC_SCHEMA_URLCONF = 'django_tenant_app.urls_public'
 
-# It is use for No Tenant 
+# It is use for No Tenant
 SHOW_PUBLIC_IF_NO_TENANT_FOUND = True
 
 # Password validation
