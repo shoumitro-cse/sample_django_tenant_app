@@ -43,7 +43,9 @@ SHOW_PUBLIC_IF_NO_TENANT_FOUND = True
 
 # three url for django tentant
 http://www.localhost:7000/admin/ => Here schema = public (default)
+
 http://demo.localhost:7000/admin/ => Here schema = demo
+
 http://demo2.localhost:7000/admin/ => Here schema = demo2
 
 link:
