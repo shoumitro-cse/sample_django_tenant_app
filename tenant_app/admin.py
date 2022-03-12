@@ -59,3 +59,4 @@ class TenantsAdmin(admin.ModelAdmin):
 app = apps.get_app_config('tenant_app')
 for model_name, model in app.models.items():
     admin.site.register(model, TenantsAdmin)
+    # admin.site.register(model)

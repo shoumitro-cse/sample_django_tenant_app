@@ -54,3 +54,4 @@ class SharedAdmin(admin.ModelAdmin):
 depot_app_config = apps.get_app_config('shared_app')
 for model in depot_app_config.get_models():
     admin.site.register(model, SharedAdmin)
+    # admin.site.register(model)
