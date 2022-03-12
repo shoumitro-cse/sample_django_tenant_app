@@ -39,3 +39,9 @@ python manage.py createsuperuser
 
 # If there is no tenant schema, the public schema will show the data
 SHOW_PUBLIC_IF_NO_TENANT_FOUND = True
+
+
+link:
+https://www.youtube.com/watch?v=TWF7okf5Xoo&t=1291s
+https://django-tenants.readthedocs.io/en/latest/install.html
+https://github.com/django-tenants/django-tenants/tree/master/examples/tenant_tutorial
