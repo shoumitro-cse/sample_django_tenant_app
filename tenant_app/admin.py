@@ -9,6 +9,9 @@ class TenantsAdmin(admin.ModelAdmin):
 
     @staticmethod
     def has_tenant(request):
+        # print('current schema name: ', request.tenant.schema_name)
+        # print('public schema name: ', get_public_schema_name())
+
         # public schema don't have any tenant
         if hasattr(request, "tenant"):
             return True
